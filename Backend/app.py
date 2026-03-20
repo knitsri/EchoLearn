@@ -91,6 +91,8 @@ def speak() :
 
     if category == "reminder":
         final_text = f"Hello........ this is your reminder..... {name}...... please take action now..."
+    elif category == "alphabets":
+          final_text = name
     else:
         final_text = f"This is  ........... {name}."
 
