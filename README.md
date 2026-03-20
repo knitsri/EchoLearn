@@ -97,7 +97,7 @@ EchoLearn/
 ### 1️⃣ Clone the repository
 
 ```bash
-git clone https://github.com/your-username/EchoLearn.git
+git clone https://github.com/knitsri/EchoLearn.git
 cd EchoLearn/Backend
 
 
