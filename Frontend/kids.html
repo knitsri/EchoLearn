@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EchoLearn | Kids Mode</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Outfit', 'sans-serif'] },
+                    colors: {
+                        neonBlue: '#00f0ff', neonPurple: '#8a2be2',
+                        kidsBlue: '#4facfe', kidsGreen: '#00f2fe', kidsYellow: '#f6d365', kidsOrange: '#fda085',
+                        darkBg: '#0a0b10'
+                    },
+                    animation: { 'pulse-glow': 'pulse-glow 2s infinite', 'enter-slide-up': 'slideUp 0.6s forwards', 'drift': 'drift 40s linear infinite', 'float': 'float 6s ease-in-out infinite' },
+                    keyframes: { 'pulse-glow': { '0%, 100%': { opacity: '0.4', transform: 'scale(1)' }, '50%': { opacity: '0.8', transform: 'scale(1.05)' } }, slideUp: { '0%': { opacity: '0', transform: 'translateY(20px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } }, drift: { '0%': { transform: 'translateX(0%)' }, '100%': { transform: 'translateX(-50%)' } }, float: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-20px)' } } }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body
+    class="bg-gray-50 text-gray-900 dark:bg-darkBg dark:text-gray-100 transition-colors duration-700 min-h-screen flex flex-col font-sans">
+
+    <div id="bg-canvas" class="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+        <div
+            class="absolute top-[-10%] left-[-10%] w-[40vw] h-[40vw] bg-kidsBlue/20 rounded-full mix-blend-screen filter blur-[80px]">
+        </div>
+        <div
+            class="absolute top-[20%] right-[-10%] w-[35vw] h-[35vw] bg-kidsYellow/20 rounded-full mix-blend-screen filter blur-[80px]">
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="sticky top-0 w-full z-50 pt-4 px-4 transition-all duration-300">
+        <div
+            class="mx-auto px-6 py-4 flex justify-between items-center rounded-2xl max-w-7xl bg-white/70 dark:bg-[#1a1b23]/80 backdrop-blur-xl border border-white/40 dark:border-white/10 shadow-lg">
+            <a href="home.html" class="flex items-center space-x-3 group">
+                <div
+                    class="w-10 h-10 rounded-xl bg-gradient-to-tr from-neonBlue to-neonPurple flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
+                    <i class="ri-voice-recognition-line text-white text-xl"></i>
+                </div>
+                <span
+                    class="text-2xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-400">EchoLearn</span>
+            </a>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="home.html" class="font-medium hover:text-neonBlue transition-colors">Home</a>
+                <div class="relative group">
+                    <button class="font-medium text-kidsBlue transition-colors flex items-center ">Change Mode <i
+                            class="ri-arrow-down-s-line ml-1"></i></button>
+                    <div
+                        class="absolute top-full right-0 mt-0 w-48 bg-white/90 dark:bg-[#1a1b23]/95 backdrop-blur-xl border border-gray-200 dark:border-white/10 rounded-2xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all flex flex-col overflow-hidden">
+                        <a href="kids.html" class="px-4 py-3 bg-kidsBlue/10 flex items-center space-x-3"><i
+                                class="ri-bear-smile-line text-kidsBlue text-lg"></i><span
+                                class="font-bold text-kidsBlue">Kids Mode</span></a>
+                        <a href="students.html"
+                            class="px-4 py-3 hover:bg-neonPurple/10 dark:hover:bg-white/10 flex items-center space-x-3"><i
+                                class="ri-graduation-cap-line text-neonPurple text-lg"></i><span>Students
+                                Mode</span></a>
+                    </div>
+                </div>
+            </div>
+            <div class="flex items-center space-x-4">
+                <button id="theme-toggle"
+                    class="w-10 h-10 rounded-full bg-gray-200 dark:bg-white/10 flex items-center justify-center hover:text-neonBlue transition-colors"><i
+                        class="ri-moon-line dark:hidden mt-0.5"></i><i
+                        class="ri-sun-line hidden dark:block mt-0.5"></i></button>
+                <button onclick="logout()"
+                    class="px-5 py-2 rounded-full border border-red-500/50 text-red-500 hover:bg-red-500 hover:text-white transition-all font-medium text-sm shadow-sm"><i
+                        class="ri-logout-circle-line mr-1"></i> Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <main
+        class="flex-grow flex p-6 gap-6 max-w-7xl mx-auto w-full z-10 relative animate-enter-slide-up h-[calc(100vh-8rem)]">
+        <!-- Sidebar -->
+        <aside
+            class="w-72 flex-shrink-0 bg-white/60 dark:bg-[#12131a]/60 backdrop-blur-xl border border-white/50 dark:border-white/10 rounded-3xl p-6 h-full flex flex-col shadow-xl">
+            <h2
+                class="text-xl font-extrabold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-kidsBlue to-kidsOrange">
+                Kids Activities 🎈</h2>
+            <nav class="space-y-3">
+                <button onclick="switchKidsTab('objects', this)" id="tab-objects"
+                    class="w-full flex items-center space-x-3 p-4 rounded-2xl bg-kidsBlue/20 text-kidsBlue font-bold border-2 border-kidsBlue/30 transition-all transform hover:scale-105 shadow-sm">
+                    <i class="ri-gamepad-line text-2xl"></i> <span>Learn Objects 🎯</span>
+                </button>
+                <button onclick="switchKidsTab('story', this)" id="tab-story"
+                    class="w-full flex items-center space-x-3 p-4 rounded-2xl bg-transparent text-gray-600 dark:text-gray-400 font-medium hover:bg-white/40 dark:hover:bg-white/5 border-2 border-transparent transition-all transform hover:scale-105">
+                    <i class="ri-moon-clear-line text-2xl"></i> <span>Bedtime Story 🌙</span>
+                </button>
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <section
+            class="flex-grow bg-white/60 dark:bg-[#12131a]/60 backdrop-blur-xl border border-white/50 dark:border-white/10 rounded-3xl p-8 overflow-y-auto h-full shadow-xl relative">
+
+
+            <div id="kids-objects-view" class="h-full flex flex-col">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+                    <h1
+                        class="text-3xl font-bold bg-gradient-to-r from-kidsBlue to-kidsOrange bg-clip-text text-transparent">
+                        Discover Objects</h1>
+                    <div class="w-full sm:w-auto overflow-x-auto pb-2 sm:pb-0 hide-scrollbar">
+                        <div
+                            class="flex space-x-2 bg-white/40 dark:bg-black/30 p-1.5 rounded-full border border-white/30 dark:border-white/10 backdrop-blur-md min-w-max">
+                            <button onclick="filterObjects('fruits', this)"
+                                class="obj-filter px-4 py-2 rounded-full bg-red-100 text-red-600 font-bold shadow-sm transition-all text-sm whitespace-nowrap">
+                                <i class="ri-apple-fill mr-1"></i> Fruits
+                            </button>
+                            <button onclick="filterObjects('veggies', this)"
+                                class="obj-filter px-4 py-2 rounded-full text-gray-500 hover:text-green-600 hover:bg-green-50 transition-all font-medium text-sm whitespace-nowrap">
+                                <i class="ri-leaf-fill mr-1"></i> Veggies
+                            </button>
+                            <button onclick="filterObjects('numbers', this)"
+                                class="obj-filter px-4 py-2 rounded-full text-gray-500 hover:text-blue-600 hover:bg-blue-50 transition-all font-medium text-sm whitespace-nowrap">
+                                <i class="ri-number-1 mr-1"></i> Numbers
+                            </button>
+                            <button onclick="filterObjects('alphabets', this)"
+                                class="obj-filter px-4 py-2 rounded-full text-gray-500 hover:text-purple-600 hover:bg-purple-100  transition-all font-medium text-sm whitespace-nowrap">
+                                <i class="ri-font-size mr-1"></i> ABC
+                            </button>
+                            <button onclick="filterObjects('animals', this)"
+                                class="obj-filter px-4 py-2 rounded-full text-gray-500 hover:text-amber-600 hover:bg-amber-100 transition-all font-medium text-sm whitespace-nowrap">
+                                <i class="ri-paw-print-fill mr-1"></i> Animals
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Objects Grid -->
+                <div class="grid grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-max" id="objects-grid">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+
+            <!-- Bedtime Story View -->
+            <div id="kids-story-view"
+                class="hidden h-full flex flex-col items-center justify-center text-center relative overflow-hidden rounded-2xl bg-gradient-to-b from-[#0f172a] to-[#020617] border border-white/10 p-10">
+
+                <div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
+                    <div class="cloud cloud-1"></div>
+                    <div class="cloud cloud-2"></div>
+                </div>
+
+                <div class="absolute inset-0 z-0 opacity-40">
+                    <div class="absolute top-10 right-20 w-32 h-32 bg-yellow-200/20 rounded-full blur-3xl"></div>
+                </div>
+                <!-- Stars -->
+                <div class="absolute top-10 left-10 text-yellow-200 animate-pulse"><i
+                        class="ri-star-s-fill text-2xl"></i></div>
+                <div class="absolute top-20 right-40 text-yellow-200 animate-pulse" style="animation-delay: 1s;"><i
+                        class="ri-star-s-fill text-xl"></i></div>
+                <div class="absolute bottom-32 left-32 text-yellow-200 animate-pulse" style="animation-delay: 2s;"><i
+                        class="ri-star-s-fill text-3xl"></i></div>
+
+                <div class="z-10 w-32 h-32 mb-8 text-yellow-300 animate-float"><i
+                        class="ri-moon-fill text-8xl drop-shadow-[0_0_20px_rgba(253,224,71,0.6)]"></i></div>
+
+                <h2 class="z-10 text-3xl font-bold text-white mb-6">The Sleepy Little Star</h2>
+
+                <div
+                    class="z-10 bg-black/40 backdrop-blur-md border border-white/10 rounded-2xl p-6 mb-8 w-full max-w-2xl h-[220px] overflow-y-auto shadow-2xl">
+                    <p id="story-text"
+                        class="text-lg font-medium leading-relaxed text-gray-200 text-left break-words whitespace-pre-wrap">
+                    </p>
+                </div>
+
+                <div class="z-10 mb-6">
+                    <select id="story-language"
+                        class="px-6 py-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white text-lg outline-none">
+                        <option value="English" class="text-black">English</option>
+                        <option value="Hindi" class="text-black">Hindi</option>
+                        <option value="Telugu" class="text-black">Telugu</option>
+                    </select>
+                </div>
+
+                <button onclick="toggleKidsStory(this)"
+                    class="z-10 px-8 py-4 bg-gradient-to-r from-kidsBlue to-kidsPurple rounded-full text-xl font-bold text-white shadow-[0_0_20px_rgba(79,172,254,0.4)] hover:shadow-[0_0_30px_rgba(79,172,254,0.6)] transition-all hover:scale-105 hover:-translate-y-1 flex items-center border border-white/20">
+                    <i id="story-icon" class="ri-play-fill mr-2 text-2xl"></i><span id="story-btn-text">Start
+                        Story</span>
+                </button>
+            </div>
+
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            initTheme();
+            protectRoute(true);
+            initKidsMode();
+        });
+    </script>
+</body>
+
+</html>
